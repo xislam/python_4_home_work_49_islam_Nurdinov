@@ -1,0 +1,18 @@
+{% extends 'base.html'%}
+
+{% block menu %}
+
+   <li><a href="{% url 'update' issue.pk %}">Edit</a></li>
+
+   <li><a href="{% url 'delete' issue.pk %}">Delete</a></li>
+
+{% endblock %}
+
+{% block title %}{{ issue.title }}{% endblock %}
+
+{% block content %}
+    <h1>Краткое описание:{{issue.summary}}</h1>
+    <p>Описание:{{ issue.description}} </p>
+    <p>Статус: {{ issue.status}}</p>
+    <p>Тип: {{ issue.type}}</p>
+{% endblock %}

@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('types/add/', TypeCreateView.as_view(), name='issue_add'),
+    path('issue/<int:pk>/edit/', IssueUpdateView.as_view(), name='update'),
 ]
