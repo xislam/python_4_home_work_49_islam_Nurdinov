@@ -2,8 +2,8 @@ from django.db import models
 
 
 class IssueTracker(models.Model):
-    summary = models.CharField(max_length=200, null=False, blank=False, verbose_name='Описание')
-    description = models.TextField(max_length=3000, null=True, blank=True, verbose_name='Подробное описание')
+    summary = models.CharField(max_length=200, null=False, blank=False, verbose_name='кратраткое описание')
+    description = models.TextField(max_length=3000, null=True, blank=True, verbose_name='описание')
     status = models.ForeignKey('Status', related_name='task_status', on_delete=models.PROTECT, verbose_name='Статус')
     type = models.ForeignKey('Type', related_name='task_type', on_delete=models.PROTECT, verbose_name='Тип')
     date_ct = models.DateField(auto_now_add=True, verbose_name='Дата создания')
