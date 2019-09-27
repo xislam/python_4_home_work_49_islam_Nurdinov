@@ -4,7 +4,7 @@ from django.forms import widgets
 from webapp.models import Type, Status
 
 
-class TaskForm(forms.Form):
+class IssueForm(forms.Form):
     summary = forms.CharField(max_length=200, required=True, label='краткое описание')
     description = forms.CharField(max_length=3000, required=False, label='Описание')
     type = forms.ModelChoiceField(queryset=Type.objects.all(), required=True, widget=forms.Select)

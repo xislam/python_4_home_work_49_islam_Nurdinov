@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+<a class="navbar-brand" href="{% url 'issue_add' %}">Add GuestBook</a>
+
+{% endblock %}
+
+{% block content %}
+<h1>IssueTracker:</h1>
+<hr/>
+{% for issue in issues %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title" style="display:inline ">{{ issue.summary }}</h5>
+        <p style="display:inline "><a href="{% url 'issue_update' issue.pk %}"><i class="fas fa-file-signature"></i></a></p>
+        <p style="display:inline "><a href="{% url 'issue_delete' issue.pk %}"><i class="fas fa-trash"></i></a></p>
+        <p class="card-text">{{ issue.description }}</p>
+        <p class="card-text">{{ issue.status }}</p>
+        <p class="card-text">{{ issue.type }}</p>
+    </div>
+</div>
+<h2></h2>
+<hr/>
+{% endfor %}
+{% endblock %}
