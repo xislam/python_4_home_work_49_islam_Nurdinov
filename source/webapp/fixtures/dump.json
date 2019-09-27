@@ -1,0 +1,73 @@
+[
+{
+  "model": "webapp.issuetracker",
+  "pk": 1,
+  "fields": {
+    "summary": "\u0447\u0442\u0435\u043d\u0438\u0435",
+    "description": "\u043c\u043e\u0434\u0435\u043b\u0438 \u043c\u043e\u0434\u0435\u043b\u0438 \u043c\u043e\u0434\u0435\u043b\u044c\u043a\u0438 \u0442\u0435\u043b\u043a\u0438",
+    "status": 1,
+    "type": 3,
+    "date_ct": "2019-09-26"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 1,
+  "fields": {
+    "type": "\u0437\u0430\u0434\u0430\u0447\u0430"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 2,
+  "fields": {
+    "type": "\u043e\u0448\u0438\u0431\u043a\u0430"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 3,
+  "fields": {
+    "type": "\u0443\u043b\u0443\u0447\u0448\u0435\u043d\u0438\u0435"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 1,
+  "fields": {
+    "status": "\u043d\u043e\u0432\u0430\u044f"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 2,
+  "fields": {
+    "status": "\u0432 \u043f\u0440\u043e\u0446\u0435\u0441\u0441\u0435"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 3,
+  "fields": {
+    "status": "\u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u0430"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$Q7hQbWcF6Goj$/aW7Ao4RlJgSZGTbR/nPUeOjksUUzy7ynUC4MRNQp7Q=",
+    "last_login": "2019-09-26T14:17:12.274Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "cs@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-09-25T10:51:37.538Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
