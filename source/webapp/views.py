@@ -136,15 +136,13 @@ class StatusDeleteView(TemplateView):
         status = get_object_or_404(Status, pk=kwargs['pk'])
         try:
             status.delete()
-
+            return redirect('status_view')
         except Exception:
-            print('Ошипка не могу удолить')
-
-        return redirect('status_view')
+            return redirect('status_view')
 
 
 class TypeView(TemplateView):
-    template_name = 'types.html'
+    template_name = 'type_view.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -160,7 +158,7 @@ class TypeCreateView(View):
 
     def post(self, request, *args, **kwargs):
         form = TypeForm(data=request.POST)
-        if form.isvalid():
+        if form.is_valid():
             data = form.cleaned_data
             Type.objects.create(type=data['type'])
             return redirect('type_view')
@@ -189,13 +187,15 @@ class TypeUpdateView(TemplateView):
 
 class TypeDeleteView(TemplateView):
     def get(self, request, *args, **kwargs):
-        types = get_object_or_404(Type, pk=kwargs['pk'])
-        return render(request, 'type_delete.html', context={'type': types})
+        typ = get_object_or_404(Type, pk=kwargs['pk'])
+        return render(request, 'type_delete.html', context={'type': typ})
 
     def post(self, request, **kwargs):
         types = get_object_or_404(Type, pk=kwargs['pk'])
-
-        types.delete()
-        return redirect('types_view')
+        try:
+            types.delete()
+            return redirect('type_view')
+        except Exception:
+            return redirect('type_view')
 
 

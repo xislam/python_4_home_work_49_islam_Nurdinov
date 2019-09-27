@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Delete Status{% endblock %}
 {% block menu %}
-    <li><a href="{% url 'status_view' %}">View</a></li>
+    <li><a class="navbar-brand"   href="{% url 'status_view' %}">View</a></li>
 {% endblock %}
 {% block content %}
     <h1>Are you sure want to delete status "{{ status }}"?</h1>

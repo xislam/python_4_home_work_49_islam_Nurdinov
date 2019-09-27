@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block menu %}
+   <li><a class="navbar-brand" href="{% url 'type_create'%}">Add Type</a></li>
+{% endblock %}
+{% block content %}
+   <h1>Type:</h1>
+   <hr/>
+    <form method="POST" action="{% url "index"  %}">
+        {% csrf_token %}
+   {% for type in types %}
+       <h2>Тип: {{ type.type }}</h2>
+       <a href="{% url 'type_update' type.pk %}"><i class="fas fa-file-signature"></i></a>
+       <a href="{% url 'type_delete' type.pk %}"><i class="fas fa-trash"></i></a>
+       <hr/>
+   {% endfor %}
+{% endblock %}

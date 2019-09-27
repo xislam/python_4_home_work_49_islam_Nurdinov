@@ -28,4 +28,8 @@ urlpatterns = [
     path('status/', StatusView.as_view(), name='status_view'),
     path('status/<int:pk>/edit/', StatusUpdateView.as_view(), name='update_status'),
     path('status/<int:pk>/delete/', StatusDeleteView.as_view(), name='delete_status'),
+    path('type/create/', TypeCreateView.as_view(), name='type_create'),
+    path('type/', TypeView.as_view(), name='type_view'),
+    path('type/<int:pk>/edit/', TypeUpdateView.as_view(), name='type_update'),
+    path('type/<int:pk>/delete/', TypeDeleteView.as_view(), name='type_delete'),
 ]
