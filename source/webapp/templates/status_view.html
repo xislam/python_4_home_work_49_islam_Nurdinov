@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block menu %}
+   <li><a class="navbar-brand" href="{% url 'create_status'%}">Add Status</a></li>
+{% endblock %}
+{% block content %}
+   <h1>Statuses:</h1>
+   <hr/>
+    <form method="POST" action="{% url "index"  %}">
+        {% csrf_token %}
+   {% for status in statuses %}
+       <h2>Статус: {{ status.status }}</h2>
+       <a href="{% url 'update_status' status.pk %}"><i class="fas fa-file-signature"></i></a>
+       <a href="{% url 'delete_status' status.pk %}"><i class="fas fa-trash"></i></a>
+       <hr/>
+   {% endfor %}
+{% endblock %}

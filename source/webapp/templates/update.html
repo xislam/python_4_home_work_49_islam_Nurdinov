@@ -2,7 +2,7 @@
 
 {% block menu %}
 
-    <li><a href="{% url 'issue_view' issue.pk %}">View</a></li>
+    <li><a class="navbar-brand"  href="{% url 'issue_view' issue.pk %}">View</a></li>
 
 {% endblock %}
 
@@ -15,7 +15,7 @@
     <form method="POST" action="{% url "update" issue.pk %}">
 
         {% csrf_token %}
-  {% include 'partial/issue_form.html' with button_text="Update" %}
+  {% include 'partial/issue_forms.html' with button_text="Update" %}
     </form>
 
 {% endblock %}

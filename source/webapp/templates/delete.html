@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Delete{% endblock %}
+
+{% block menu %}
+{% endblock %}
+
+{% block content %}
+
+    <h1>Are you sure want to delete task "{{ issue }}"?</h1>
+
+    <form method="POST" action="{% url "delete" issue.pk %}" class="text-center">
+
+        {% csrf_token %}
+
+        <p><input type="submit" value="Confirm"></p>
+
+        <p><a href="{% url "index" %}">Cancel</a></p>
+
+    </form>
+
+{% endblock %}
