@@ -188,7 +188,7 @@ class StatusDeleteView(TemplateView):
         status = get_object_or_404(Status, pk=kwargs['pk'])
         return render(request, 'status_delete.html', context={'status': status})
 
-    def post_context_data(self, request, **kwargs):
+    def post_context_data(self, **kwargs):
         status = get_object_or_404(Status, pk=kwargs['pk'])
 
         status.delete()
