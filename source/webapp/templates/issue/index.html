@@ -12,6 +12,9 @@
 {% block content %}
 <h1>IssueTracker:</h1>
 <hr/>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
 {% for issue in issues %}
 <div class="card">
     <div class="card-body">
@@ -27,4 +30,7 @@
 <h2></h2>
 <hr/>
 {% endfor %}
+      {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
 {% endblock %}

@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View
 import traceback
@@ -6,17 +6,15 @@ from webapp.models import IssueTracker, Type, Status
 from webapp.forms import IssueForm, TypeForm, StatusForm
 
 
-class IndexView(TemplateView):
-    template_name = 'index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['issues'] = IssueTracker.objects.all()
-        return context
-
+class IndexView(ListView):
+    template_name = 'issue/index.html'
+    context_object_name = 'issues'
+    model = IssueTracker
+    paginate_by = 4
+    paginate_orphans = 1
 
 class IssueView(TemplateView):
-    template_name = 'issue.html'
+    template_name = 'issue/issue.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -29,7 +27,7 @@ class IssueCreateView(View):
 
     def get(self, request, **kwargs):
         form = IssueForm()
-        return render(request, 'create.html', context={'form': form})
+        return render(request, 'issue/create.html', context={'form': form})
 
     def post(self, request, *args, **kwargs):
         form = IssueForm(data=request.POST)
@@ -41,7 +39,7 @@ class IssueCreateView(View):
                                                 type=data['type'])
             return redirect('issue_view', pk=issue.pk)
         else:
-            return render(request, 'create.html', context={'form': form})
+            return render(request, 'issue/create.html', context={'form': form})
 
 
 class IssueUpdateView(TemplateView):
@@ -53,7 +51,7 @@ class IssueUpdateView(TemplateView):
                                'type': issue.type,
                                'status': issue.status})
 
-        return render(request, 'update.html', context={'form': form, 'issue': issue})
+        return render(request, 'issue/update.html', context={'form': form, 'issue': issue})
 
     def post(self, request, **kwargs):
         issue = get_object_or_404(IssueTracker, pk=kwargs['pk'])
@@ -67,13 +65,13 @@ class IssueUpdateView(TemplateView):
             issue.save()
             return redirect('issue_view', pk=issue.pk)
         else:
-            return render(request, 'update.html', context={'form': form})
+            return render(request, 'issue/update.html', context={'form': form})
 
 
 class IssueDeleteView(TemplateView):
     def get(self, request, *args, **kwargs):
         issue = get_object_or_404(IssueTracker, pk=kwargs['pk'])
-        return render(request, 'delete.html', context={'issue': issue})
+        return render(request, 'issue/delete.html', context={'issue': issue})
 
     def post(self, request, **kwargs):
         issue = get_object_or_404(IssueTracker, pk=kwargs['pk'])
@@ -142,7 +140,7 @@ class StatusDeleteView(TemplateView):
 
 
 class TypeView(TemplateView):
-    template_name = 'type_view.html'
+    template_name = 'type/type_view.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -154,7 +152,7 @@ class TypeCreateView(View):
 
     def get(self, request, **kwargs):
         form = TypeForm()
-        return render(request, 'type_create.html', context={'form': form})
+        return render(request, 'type/type_create.html', context={'form': form})
 
     def post(self, request, *args, **kwargs):
         form = TypeForm(data=request.POST)
@@ -163,7 +161,7 @@ class TypeCreateView(View):
             Type.objects.create(type=data['type'])
             return redirect('type_view')
         else:
-            return render(request, 'type_create.html', context={'form': form})
+            return render(request, 'type/type_create.html', context={'form': form})
 
 
 class TypeUpdateView(TemplateView):
@@ -171,7 +169,7 @@ class TypeUpdateView(TemplateView):
     def get(self, request, **kwargs):
         types = get_object_or_404(Type, pk=kwargs['pk'])
         form = TypeForm(data={'type': types.type})
-        return render(request, 'type_update.html', context={'form': form, 'type': type})
+        return render(request, 'type/type_update.html', context={'form': form, 'type': type})
 
     def post(self, request, **kwargs):
         types = get_object_or_404(Type, pk=kwargs['pk'])
@@ -182,13 +180,13 @@ class TypeUpdateView(TemplateView):
             types.save()
             return redirect('issue_view')
         else:
-            return render(request, 'type_update.html', context={'form': form})
+            return render(request, 'type/type_update.html', context={'form': form})
 
 
 class TypeDeleteView(TemplateView):
     def get(self, request, *args, **kwargs):
         typ = get_object_or_404(Type, pk=kwargs['pk'])
-        return render(request, 'type_delete.html', context={'type': typ})
+        return render(request, 'type/type_delete.html', context={'type': typ})
 
     def post(self, request, **kwargs):
         types = get_object_or_404(Type, pk=kwargs['pk'])
