@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView, ListView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View
-
+from webapp.views.views_detail import DetailView
 from webapp.models import IssueTracker
 from webapp.forms import IssueForm
 
@@ -14,7 +14,7 @@ class IndexView(ListView):
     paginate_orphans = 1
 
 
-class IssueView(TemplateView):
+class IssueView(DetailView):
     template_name = 'issue/issue.html'
 
     def get_context_data(self, **kwargs):
@@ -48,8 +48,8 @@ class IssueUpdateView(TemplateView):
         issue = get_object_or_404(IssueTracker, pk=kwargs['pk'])
         form = IssueForm(data={'summary': issue.summary,
                                'description': issue.description,
-                               'type': issue.type,
-                               'status': issue.status})
+                               'type': issue.type_id,
+                               'status': issue.status_id})
 
         return render(request, 'issue/update.html', context={'form': form, 'issue': issue})
 
@@ -60,8 +60,8 @@ class IssueUpdateView(TemplateView):
             data = form.cleaned_data
             issue.description = data['description']
             issue.summary = data['summary']
-            issue.status = data['status']
-            issue.type = data['type']
+            issue.status_id = data['status']
+            issue.type_id = data['type']
             issue.save()
             return redirect('issue_view', pk=issue.pk)
         else:
