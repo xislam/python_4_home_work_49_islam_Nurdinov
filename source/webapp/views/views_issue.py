@@ -16,12 +16,8 @@ class IndexView(ListView):
 
 class IssueView(DetailView):
     template_name = 'issue/issue.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context_pk = kwargs.get('pk')
-        context['issue'] = get_object_or_404(IssueTracker, pk=context_pk)
-        return context
+    context_key = 'issue'
+    model = IssueTracker
 
 
 class IssueCreateView(View):
