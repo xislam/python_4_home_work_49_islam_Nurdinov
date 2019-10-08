@@ -1,8 +1,6 @@
 from django.urls import reverse
-from django.views.generic import TemplateView, ListView, CreateView
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic.base import View
-from webapp.views.views_detail import DetailView, UpdateView
+from django.views.generic import  ListView, CreateView
+from webapp.views.views_detail import DetailView, UpdateView, DeleteView
 from webapp.models import IssueTracker
 from webapp.forms import IssueForm
 
@@ -42,13 +40,12 @@ class IssueUpdateView(UpdateView):
         return reverse('issue_view', kwargs={'pk': self.item.pk})
 
 
-class IssueDeleteView(TemplateView):
-    def get(self, request, *args, **kwargs):
-        issue = get_object_or_404(IssueTracker, pk=kwargs['pk'])
-        return render(request, 'issue/delete.html', context={'issue': issue})
+class IssueDeleteView(DeleteView):
+    model = IssueTracker
+    template_name = 'issue/delete.html'
+    form_class = IssueForm
+    object_name = 'issue'
+    page = 'index'
 
-    def post(self, request, **kwargs):
-        issue = get_object_or_404(IssueTracker, pk=kwargs['pk'])
-
-        issue.delete()
-        return redirect('index')
+    def get_redirect_url(self):
+        return reverse('index')

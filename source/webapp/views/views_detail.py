@@ -52,3 +52,33 @@ class UpdateView(View):
         return item
 
 
+class DeleteView(View):
+    form_class = None
+    template_name = None
+    model = None
+    redirect_url = ''
+    pk_kwargs = 'pk'
+    object_name = None
+    item = None
+    page = ''
+
+    def get(self, request, *args, **kwargs):
+        item = self.get_item()
+        form = self.form_class(instance=item)
+        return render(request, self.template_name, context={'form': form, self.object_name: item})
+
+    def post(self, request, *args, **kwargs):
+        self.item = self.get_item()
+        try:
+            self.item.delete()
+            return redirect(self.get_redirect_url())
+        except:
+            return render(request, self.page)
+
+    def get_redirect_url(self):
+        return self.redirect_url
+
+    def get_item(self):
+        pk = self.kwargs.get(self.pk_kwargs)
+        item = get_object_or_404(self.model, pk=pk)
+        return item
