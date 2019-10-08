@@ -1,10 +1,8 @@
-from django.views.generic import TemplateView, ListView
+from django.urls import reverse
+from django.views.generic import TemplateView, ListView, CreateView
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic.base import View
-
-from webapp.models import Type
-from webapp.forms import TypeForm
-from webapp.views.views_detail import DetailView
+from webapp.models import Type, IssueTracker
+from webapp.forms import TypeForm, IssueForm
 
 
 class TypeView(ListView):
@@ -13,20 +11,15 @@ class TypeView(ListView):
     model = Type
 
 
-class TypeCreateView(View):
+class TypeCreateView(CreateView):
+    template_name = 'type/type_create.html'
 
-    def get(self, request, **kwargs):
-        form = TypeForm()
-        return render(request, 'type/type_create.html', context={'form': form})
+    model = IssueTracker
 
-    def post(self, request, *args, **kwargs):
-        form = TypeForm(data=request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            Type.objects.create(type=data['type'])
-            return redirect('type_view')
-        else:
-            return render(request, 'type/type_create.html', context={'form': form})
+    form_class = IssueForm
+
+    def get_success_url(self):
+        return reverse('type_view', kwargs={'pk': self.object.pk})
 
 
 class TypeUpdateView(TemplateView):

@@ -1,20 +1,30 @@
 
 from django import forms
-from webapp.models import Type, Status
+from webapp.models import Type, Status, IssueTracker
 
 
-class IssueForm(forms.Form):
-    summary = forms.CharField(max_length=200, required=True, label='краткое описание')
-    description = forms.CharField(max_length=3000, required=True, label='Описание')
-    type = forms.ModelChoiceField(queryset=Type.objects.all(), required=True, widget=forms.Select)
-    status = forms.ModelChoiceField(queryset=Status.objects.all(), required=True, widget=forms.Select)
+class IssueForm(forms.ModelForm):
+
+    class Meta:
+
+        model = IssueTracker
+
+        fields = ['summary', 'description', 'status', 'type']
 
 
-class StatusForm(forms.Form):
-    status = forms.CharField(max_length=20, required=True, label='Статус')
+class StatusForm(forms.ModelForm):
+    class Meta:
+
+        model = Status
+
+        fields = ['status']
 
 
-class TypeForm(forms.Form):
-    type = forms.CharField(max_length=20, required=True, label='Тип')
+class TypeForm(forms.ModelForm):
+    class Meta:
+
+        model = Type
+
+        fields = ['type']
 
 

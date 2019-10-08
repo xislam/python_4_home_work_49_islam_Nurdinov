@@ -1,4 +1,5 @@
-from django.views.generic import TemplateView, ListView
+from django.urls import reverse
+from django.views.generic import TemplateView, ListView, CreateView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View
 from webapp.views.views_detail import DetailView
@@ -20,22 +21,15 @@ class IssueView(DetailView):
     model = IssueTracker
 
 
-class IssueCreateView(View):
-    def get(self, request, **kwargs):
-        form = IssueForm()
-        return render(request, 'issue/create.html', context={'form': form})
+class IssueCreateView(CreateView):
+    template_name = 'issue/create.html'
 
-    def post(self, request, *args, **kwargs):
-        form = IssueForm(data=request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            issue = IssueTracker.objects.create(summary=data['summary'],
-                                                description=data['description'],
-                                                status=data['status'],
-                                                type=data['type'])
-            return redirect('issue_view', pk=issue.pk)
-        else:
-            return render(request, 'issue/create.html', context={'form': form})
+    model = IssueTracker
+
+    form_class = IssueForm
+
+    def get_success_url(self):
+        return reverse('issue_view', kwargs={'pk': self.object.pk})
 
 
 class IssueUpdateView(TemplateView):
