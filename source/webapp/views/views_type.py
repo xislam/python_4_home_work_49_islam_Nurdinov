@@ -3,6 +3,7 @@ from django.views.generic import TemplateView, ListView, CreateView
 from django.shortcuts import render, get_object_or_404, redirect
 from webapp.models import Type, IssueTracker
 from webapp.forms import TypeForm, IssueForm
+from webapp.views.views_detail import UpdateView
 
 
 class TypeView(ListView):
@@ -22,23 +23,14 @@ class TypeCreateView(CreateView):
         return reverse('type_view', kwargs={'pk': self.object.pk})
 
 
-class TypeUpdateView(TemplateView):
+class TypeUpdateView(UpdateView):
+    model = Type
+    template_name = 'type/type_update.html'
+    form_class = TypeForm
+    object_name = 'type'
 
-    def get(self, request, **kwargs):
-        types = get_object_or_404(Type, pk=kwargs['pk'])
-        form = TypeForm(data={'type': types.type})
-        return render(request, 'type/type_update.html', context={'form': form, 'type': type})
-
-    def post(self, request, **kwargs):
-        types = get_object_or_404(Type, pk=kwargs['pk'])
-        form = TypeForm(data=request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            types.type = data['type']
-            types.save()
-            return redirect('issue_view')
-        else:
-            return render(request, 'type/type_update.html', context={'form': form})
+    def get_redirect_url(self):
+        return reverse('type_view', kwargs={'pk': self.item.pk})
 
 
 class TypeDeleteView(TemplateView):

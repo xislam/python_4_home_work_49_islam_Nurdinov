@@ -2,7 +2,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView, ListView, CreateView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View
-from webapp.views.views_detail import DetailView
+from webapp.views.views_detail import DetailView, UpdateView
 from webapp.models import IssueTracker
 from webapp.forms import IssueForm
 
@@ -32,30 +32,14 @@ class IssueCreateView(CreateView):
         return reverse('issue_view', kwargs={'pk': self.object.pk})
 
 
-class IssueUpdateView(TemplateView):
+class IssueUpdateView(UpdateView):
+    model = IssueTracker
+    template_name = 'issue/update.html'
+    form_class = IssueForm
+    object_name = 'issue'
 
-    def get(self, request, **kwargs):
-        issue = get_object_or_404(IssueTracker, pk=kwargs['pk'])
-        form = IssueForm(data={'summary': issue.summary,
-                               'description': issue.description,
-                               'type': issue.type_id,
-                               'status': issue.status_id})
-
-        return render(request, 'issue/update.html', context={'form': form, 'issue': issue})
-
-    def post(self, request, **kwargs):
-        issue = get_object_or_404(IssueTracker, pk=kwargs['pk'])
-        form = IssueForm(data=request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            issue.description = data['description']
-            issue.summary = data['summary']
-            issue.status_id = data['status']
-            issue.type_id = data['type']
-            issue.save()
-            return redirect('issue_view', pk=issue.pk)
-        else:
-            return render(request, 'issue/update.html', context={'form': form})
+    def get_redirect_url(self):
+        return reverse('issue_view', kwargs={'pk': self.item.pk})
 
 
 class IssueDeleteView(TemplateView):

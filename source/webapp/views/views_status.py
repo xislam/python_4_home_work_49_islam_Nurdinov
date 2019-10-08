@@ -3,6 +3,7 @@ from django.views.generic import TemplateView, ListView, CreateView
 from django.shortcuts import render, get_object_or_404, redirect
 from webapp.models import Status, IssueTracker
 from webapp.forms import StatusForm, IssueForm
+from webapp.views.views_detail import UpdateView
 
 
 class StatusView(ListView):
@@ -22,24 +23,14 @@ class StatusCreateView(CreateView):
         return reverse('status_view', kwargs={'pk': self.object.pk})
 
 
-class StatusUpdateView(TemplateView):
+class StatusUpdateView(UpdateView):
+    model = Status
+    template_name = 'status/update_status.html'
+    form_class = StatusForm
+    object_name = 'status'
 
-    def get(self, request, **kwargs):
-        status = get_object_or_404(Status, pk=kwargs['pk'])
-        form = StatusForm(data={'status': status.status})
-        return render(request, 'status/update_status.html', context={'form': form,
-                                                              'status': status})
-
-    def post(self, request, **kwargs):
-        status = get_object_or_404(Status, pk=kwargs['pk'])
-        form = StatusForm(data=request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            status.status = data['status']
-            status.save()
-            return redirect('status_view')
-        else:
-            return render(request, 'status/update_status.html', context={'form': form})
+    def get_redirect_url(self):
+        return reverse('task_view', kwargs={'pk': self.item.pk})
 
 
 class StatusDeleteView(TemplateView):
