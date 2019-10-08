@@ -15,9 +15,9 @@ class TypeView(ListView):
 class TypeCreateView(CreateView):
     template_name = 'type/type_create.html'
 
-    model = IssueTracker
+    model = Type
 
-    form_class = IssueForm
+    form_class = TypeForm
 
     def get_success_url(self):
         return reverse('type_view', kwargs={'pk': self.object.pk})
