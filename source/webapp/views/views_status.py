@@ -36,9 +36,9 @@ class StatusUpdateView(UpdateView):
 class StatusDeleteView(DeleteView):
     model = IssueTracker
     template_name = 'status/delete_status.html'
-    form_class = StatusForm
+    # form_class = StatusForm
     object_name = 'status'
-    page = 'status_view'
+    page = 'error.html'
 
     def get_redirect_url(self):
         return reverse('status_view')

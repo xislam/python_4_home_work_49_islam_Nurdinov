@@ -61,11 +61,20 @@ class DeleteView(View):
     object_name = None
     item = None
     page = ''
+    key = False
 
     def get(self, request, *args, **kwargs):
-        item = self.get_item()
-        form = self.form_class(instance=item)
-        return render(request, self.template_name, context={'form': form, self.object_name: item})
+        if self.key == False:
+            item = self.get_item()
+            form = self.form_class(instance=item)
+            return render(request, self.template_name, context={'form': form, self.object_name: item})
+        else:
+            self.item = self.get_item()
+            try:
+                self.item.delete()
+                return redirect(self.get_redirect_url())
+            except Exception:
+                return render(request, self.page)
 
     def post(self, request, *args, **kwargs):
         self.item = self.get_item()
