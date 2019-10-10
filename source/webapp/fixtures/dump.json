@@ -1,101 +1,53 @@
 [
 {
   "model": "webapp.issuetracker",
-  "pk": 3,
-  "fields": {
-    "summary": "\u0447\u0442\u0435\u043d\u0438\u0435",
-    "description": "islsmdof",
-    "status": 1,
-    "type": 3,
-    "date_ct": "2019-09-27"
-  }
-},
-{
-  "model": "webapp.issuetracker",
-  "pk": 4,
-  "fields": {
-    "summary": "\u0447\u0442\u0435\u043d\u0438\u0435",
-    "description": "islsmdof",
-    "status": 1,
-    "type": 1,
-    "date_ct": "2019-09-27"
-  }
-},
-{
-  "model": "webapp.issuetracker",
-  "pk": 5,
-  "fields": {
-    "summary": "\u0447\u0442\u0435\u043d\u0438\u0435",
-    "description": "islsmdof",
-    "status": 1,
-    "type": 1,
-    "date_ct": "2019-09-27"
-  }
-},
-{
-  "model": "webapp.issuetracker",
-  "pk": 6,
-  "fields": {
-    "summary": "\u0447\u0442\u0435\u043d\u0438\u0435",
-    "description": "islsmdof",
-    "status": 1,
-    "type": 1,
-    "date_ct": "2019-09-27"
-  }
-},
-{
-  "model": "webapp.issuetracker",
-  "pk": 7,
-  "fields": {
-    "summary": "\u0447\u0442\u0435\u043d\u0438\u0435",
-    "description": "islsmdof",
-    "status": 1,
-    "type": 1,
-    "date_ct": "2019-09-27"
-  }
-},
-{
-  "model": "webapp.issuetracker",
-  "pk": 8,
-  "fields": {
-    "summary": "\u0447\u0442\u0435\u043d\u0438\u0435",
-    "description": "islsmdof",
-    "status": 1,
-    "type": 1,
-    "date_ct": "2019-09-27"
-  }
-},
-{
-  "model": "webapp.issuetracker",
-  "pk": 9,
-  "fields": {
-    "summary": "\u0447\u0442\u0435\u043d\u0438\u0435",
-    "description": "islsmdof",
-    "status": 1,
-    "type": 1,
-    "date_ct": "2019-09-27"
-  }
-},
-{
-  "model": "webapp.issuetracker",
-  "pk": 11,
-  "fields": {
-    "summary": "\u0447\u0442\u0435\u043d\u0438\u0435",
-    "description": "islsmdof",
-    "status": 1,
-    "type": 1,
-    "date_ct": "2019-09-27"
-  }
-},
-{
-  "model": "webapp.issuetracker",
-  "pk": 12,
+  "pk": 21,
   "fields": {
     "summary": "islam",
-    "description": "ghjkl",
-    "status": 1,
-    "type": 3,
-    "date_ct": "2019-09-27"
+    "description": "trrxfcgvjhkb;ln",
+    "status": 5,
+    "type": 7,
+    "date_ct": "2019-10-08"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 1,
+  "fields": {
+    "name_pj": "\u043b\u0443\u043a",
+    "description_pj": "\u044b\u0432\u0430",
+    "created_at": "2019-10-09",
+    "updated_at": "2019-10-09"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 2,
+  "fields": {
+    "name_pj": "\u0449\u0430\u0432\u0442\u043f\u0430\u0448\u043f\u0432\u044b\u0430\u0432",
+    "description_pj": "\u0444\u044b\u0432 \u0430\u044b\u0432\u0430 \u0444\u044b\u0432\u0430 \u0444\u044b\u0432\u0430",
+    "created_at": "2019-10-09",
+    "updated_at": "2019-10-09"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 3,
+  "fields": {
+    "name_pj": "\u0444\u0432\u0430\u043f",
+    "description_pj": "\u0444\u0430\u0432\u043f\u0444 \u0430",
+    "created_at": "2019-10-09",
+    "updated_at": "2019-10-09"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 4,
+  "fields": {
+    "name_pj": "\u0432\u0444\u044b\u0430\u043f\u0444",
+    "description_pj": "\u0444\u0432\u0430\u043f\u0444\u0432\u0430\u043f",
+    "created_at": "2019-10-09",
+    "updated_at": "2019-10-09"
   }
 },
 {
@@ -131,6 +83,27 @@
   "pk": 7,
   "fields": {
     "type": "\u043e\u0448\u0438\u0431\u043a\u0430"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 8,
+  "fields": {
+    "type": "7"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 9,
+  "fields": {
+    "type": "hj"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 10,
+  "fields": {
+    "type": "hj"
   }
 },
 {
@@ -173,6 +146,20 @@
   "pk": 10,
   "fields": {
     "status": "\u0432 \u043f\u0440\u043e\u0446\u0435\u0441\u0441\u0435"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 16,
+  "fields": {
+    "status": "test"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 17,
+  "fields": {
+    "status": "test 2"
   }
 },
 {

@@ -1,5 +1,5 @@
 from django.urls import reverse
-from django.views.generic import  ListView, CreateView
+from django.views.generic import ListView, CreateView
 from webapp.views.views_detail import DetailView, UpdateView, DeleteView
 from webapp.models import IssueTracker
 from webapp.forms import IssueForm

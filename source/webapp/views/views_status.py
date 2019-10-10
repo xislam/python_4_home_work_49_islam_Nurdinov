@@ -1,8 +1,7 @@
 from django.urls import reverse
-from django.views.generic import TemplateView, ListView, CreateView
-from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, CreateView
 from webapp.models import Status, IssueTracker
-from webapp.forms import StatusForm, IssueForm
+from webapp.forms import StatusForm
 from webapp.views.views_detail import UpdateView, DeleteView
 
 
@@ -20,7 +19,7 @@ class StatusCreateView(CreateView):
     form_class = StatusForm
 
     def get_success_url(self):
-        return reverse('status_view', kwargs={'pk': self.object.pk})
+        return reverse('status_view')
 
 
 class StatusUpdateView(UpdateView):
@@ -30,13 +29,13 @@ class StatusUpdateView(UpdateView):
     object_name = 'status'
 
     def get_redirect_url(self):
-        return reverse('task_view', kwargs={'pk': self.item.pk})
+        return reverse('status_view')
 
 
 class StatusDeleteView(DeleteView):
     model = IssueTracker
     template_name = 'status/delete_status.html'
-    # form_class = StatusForm
+    form_class = StatusForm
     object_name = 'status'
     page = 'error.html'
 

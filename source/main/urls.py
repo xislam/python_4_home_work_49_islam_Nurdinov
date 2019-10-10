@@ -32,4 +32,5 @@ urlpatterns = [
     path('type/', TypeView.as_view(), name='type_view'),
     path('type/<int:pk>/edit/', TypeUpdateView.as_view(), name='type_update'),
     path('type/<int:pk>/delete/', TypeDeleteView.as_view(), name='type_delete'),
+
 ]

@@ -1,8 +1,7 @@
 from django.urls import reverse
-from django.views.generic import TemplateView, ListView, CreateView
-from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, CreateView
 from webapp.models import Type, IssueTracker
-from webapp.forms import TypeForm, IssueForm
+from webapp.forms import TypeForm
 from webapp.views.views_detail import UpdateView, DeleteView
 
 
@@ -20,7 +19,7 @@ class TypeCreateView(CreateView):
     form_class = TypeForm
 
     def get_success_url(self):
-        return reverse('type_view', kwargs={'pk': self.object.pk})
+        return reverse('type_view')
 
 
 class TypeUpdateView(UpdateView):
@@ -30,7 +29,7 @@ class TypeUpdateView(UpdateView):
     object_name = 'type'
 
     def get_redirect_url(self):
-        return reverse('type_view', kwargs={'pk': self.item.pk})
+        return reverse('type_view')
 
 
 class TypeDeleteView(DeleteView):

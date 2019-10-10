@@ -1,0 +1,13 @@
+{% extends "issue/base.html" %}
+{% block title %}Delete Project{% endblock %}
+{% block menu %}
+    <li><a class="navbar-brand"   href="{% url 'project_view' %}">View</a></li>
+{% endblock %}
+{% block content %}
+    <h1>Are you sure want to delete status "{{ projects }}"?</h1>
+    <form method="POST" action="{% url "delete" project.pk %}" class="text-center">
+        {% csrf_token %}
+        <p><input type="submit" value="Confirm"></p>
+        <p><a href="{% url "index" %}">Cancel</a></p>
+    </form>
+{% endblock %}
