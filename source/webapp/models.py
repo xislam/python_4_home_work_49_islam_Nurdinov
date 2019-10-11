@@ -14,8 +14,8 @@ class IssueTracker(models.Model):
 
 
 class Project(models.Model):
-    name_pj = models.CharField(max_length=200, null=False, blank=False, verbose_name='имя проекта')
-    description_pj = models.TextField(max_length=3000, null=True, blank=True, verbose_name='описание')
+    name_project = models.CharField(max_length=200, null=False, blank=False, verbose_name='имя проекта')
+    description_project = models.TextField(max_length=3000, null=True, blank=True, verbose_name='описание')
     created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateField(auto_now_add=True, verbose_name='Дата изменения')
 

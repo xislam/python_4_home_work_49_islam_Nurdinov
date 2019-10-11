@@ -1,8 +1,7 @@
 from django.urls import reverse
-from django.views.generic import ListView, CreateView
-from webapp.models import Type, IssueTracker
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from webapp.models import Type
 from webapp.forms import TypeForm
-from webapp.views.views_detail import UpdateView, DeleteView
 
 
 class TypeView(ListView):

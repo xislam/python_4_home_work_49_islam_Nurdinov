@@ -1,0 +1,19 @@
+{% extends 'issue/base.html' %}
+
+{% block menu %}
+
+   <li><a href="{% url 'update_project' project.pk %}">Edit</a></li>
+
+   <li><a href="{% url 'delete_project' project.pk %}">Delete</a></li>
+
+{% endblock %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+    <h1>Краткое описание:{{project.name_project}}</h1>
+    <p>Описание:{{ project.description_project}} </p>
+    {% for issues in project.issue_project.all %}
+        <h2>Задачи: {{ issues.summary }}</h2>
+    {% endfor %}
+{% endblock %}

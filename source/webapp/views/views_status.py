@@ -1,8 +1,7 @@
 from django.urls import reverse
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from webapp.models import Status
 from webapp.forms import StatusForm
-from webapp.views.views_detail import UpdateView, DeleteView
 
 
 class StatusView(ListView):

@@ -1,13 +1,22 @@
 from django.urls import reverse
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from webapp.models import Project
 from webapp.forms import ProjectForm
-from webapp.views.views_detail import UpdateView, DeleteView
 
 
 class ProjectView(ListView):
-    template_name = 'project/view.html'
+    template_name = 'project/view_project.html'
     context_object_name = 'projects'
+    model = Project
+    ordering = ['created_at']
+
+    def get_queryset(self):
+        return Project.objects.all().order_by('created_at')
+
+
+class ProjectDetailView(DetailView):
+    template_name = 'project/projects.html'
+    context_key = 'project'
     model = Project
 
 
@@ -19,7 +28,7 @@ class ProjectCreateView(CreateView):
     form_class = ProjectForm
 
     def get_success_url(self):
-        return reverse('view')
+        return reverse('view_project')
 
 
 class ProjectUpdateView(UpdateView):
@@ -29,7 +38,7 @@ class ProjectUpdateView(UpdateView):
     object_name = 'project'
 
     def get_redirect_url(self):
-        return reverse('view')
+        return reverse('view_project')
 
 
 class ProjectDeleteView(DeleteView):
@@ -39,5 +48,5 @@ class ProjectDeleteView(DeleteView):
     object_name = 'project'
     page = 'error.html'
 
-    def get_redirect_url(self):
-        return reverse('view')
+    def get_success_url(self):
+        return reverse('view_project')
