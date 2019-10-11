@@ -35,9 +35,9 @@ class ProjectUpdateView(UpdateView):
     model = Project
     template_name = 'project/update.html'
     form_class = ProjectForm
-    object_name = 'project'
+    context_object_name = 'project'
 
-    def get_redirect_url(self):
+    def get_success_url(self):
         return reverse('view_project')
 
 
@@ -45,7 +45,7 @@ class ProjectDeleteView(DeleteView):
     model = Project
     template_name = 'project/delete.html'
     form_class = ProjectForm
-    object_name = 'project'
+    context_object_name = 'project'
     page = 'error.html'
 
     def get_success_url(self):

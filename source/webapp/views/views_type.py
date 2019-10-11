@@ -27,7 +27,7 @@ class TypeUpdateView(UpdateView):
     form_class = TypeForm
     object_name = 'type'
 
-    def get_redirect_url(self):
+    def get_success_url(self):
         return reverse('type_view')
 
 
@@ -38,5 +38,5 @@ class TypeDeleteView(DeleteView):
     object_name = 'type'
     page = 'type_view'
 
-    def get_redirect_url(self):
+    def get_success_url(self):
         return reverse('type_view')

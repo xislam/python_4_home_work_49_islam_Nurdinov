@@ -33,18 +33,18 @@ class IssueUpdateView(UpdateView):
     model = IssueTracker
     template_name = 'issue/update.html'
     form_class = IssueForm
-    object_name = 'issue'
+    context_object_name = 'issue'
 
-    def get_redirect_url(self):
-        return reverse('issue_view', kwargs={'pk': self.item.pk})
+    def get_success_url(self):
+        return reverse('issue_view', kwargs={'pk': self.object.pk})
 
 
 class IssueDeleteView(DeleteView):
     model = IssueTracker
     template_name = 'issue/delete.html'
     form_class = IssueForm
-    object_name = 'issue'
+    context_object_name = 'issue'
     page = 'index'
 
-    def get_redirect_url(self):
+    def get_success_url(self):
         return reverse('index')

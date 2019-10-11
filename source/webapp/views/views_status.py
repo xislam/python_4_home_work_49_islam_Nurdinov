@@ -25,9 +25,9 @@ class StatusUpdateView(UpdateView):
     model = Status
     template_name = 'status/update_status.html'
     form_class = StatusForm
-    object_name = 'status'
+    context_object_name = 'status'
 
-    def get_redirect_url(self):
+    def get_success_url(self):
         return reverse('status_view')
 
 
@@ -35,8 +35,8 @@ class StatusDeleteView(DeleteView):
     model = Status
     template_name = 'status/delete_status.html'
     form_class = StatusForm
-    object_name = 'status'
+    context_object_name = 'status'
     page = 'error.html'
 
-    def get_redirect_url(self):
+    def get_success_url(self):
         return reverse('status_view')
