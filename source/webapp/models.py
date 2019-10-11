@@ -20,7 +20,7 @@ class Project(models.Model):
     updated_at = models.DateField(auto_now_add=True, verbose_name='Дата изменения')
 
     def __str__(self): 
-        return self.name_pj
+        return self.name_project
 
 
 
