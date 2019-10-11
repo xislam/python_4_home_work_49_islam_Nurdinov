@@ -19,6 +19,10 @@ class Project(models.Model):
     created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateField(auto_now_add=True, verbose_name='Дата изменения')
 
+    def __str__(self): 
+        return self.name_pj
+
+
 
 class Type(models.Model):
     type = models.CharField(max_length=20, verbose_name='Тип')

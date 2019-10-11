@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from webapp.views import *
+from webapp.views.views_project import ProjectView, ProjectUpdateView, ProjectDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,5 +33,8 @@ urlpatterns = [
     path('type/', TypeView.as_view(), name='type_view'),
     path('type/<int:pk>/edit/', TypeUpdateView.as_view(), name='type_update'),
     path('type/<int:pk>/delete/', TypeDeleteView.as_view(), name='type_delete'),
-
+    path('pj/create/', TypeCreateView.as_view(), name='type_create'),
+    path('pj/', ProjectView.as_view(), name='view'),
+    path('pj/<int:pk>/edit/', ProjectUpdateView.as_view(), name='update'),
+    path('pj/<int:pk>/delete/', ProjectDeleteView.as_view(), name='delete'),
 ]

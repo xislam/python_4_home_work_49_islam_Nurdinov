@@ -8,8 +8,10 @@
     <form method="POST" action="{% url "index"  %}">
         {% csrf_token %}
    {% for project in projects %}
-       <h2>Статус: {{ project.name_pj }}</h2>
-       <h2>Статус: {{ project.description_pj }}</h2>
+       <h2>Имя проекта : {{ project.name_pj }}</h2>
+       <h2>Описание : {{ project.description_pj }}</h2>
+        <h2>дата создания  : {{ project.created_at }}</h2>
+
        <a href="{% url 'update' project.pk %}"><i class="fas fa-file-signature"></i></a>
        <a href="{% url 'delete' project.pk %}"><i class="fas fa-trash"></i></a>
        <hr/>

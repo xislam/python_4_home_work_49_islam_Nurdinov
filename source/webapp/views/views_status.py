@@ -1,6 +1,6 @@
 from django.urls import reverse
 from django.views.generic import ListView, CreateView
-from webapp.models import Status, IssueTracker
+from webapp.models import Status
 from webapp.forms import StatusForm
 from webapp.views.views_detail import UpdateView, DeleteView
 
@@ -33,7 +33,7 @@ class StatusUpdateView(UpdateView):
 
 
 class StatusDeleteView(DeleteView):
-    model = IssueTracker
+    model = Status
     template_name = 'status/delete_status.html'
     form_class = StatusForm
     object_name = 'status'

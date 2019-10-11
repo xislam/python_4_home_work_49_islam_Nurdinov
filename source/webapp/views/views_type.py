@@ -33,7 +33,7 @@ class TypeUpdateView(UpdateView):
 
 
 class TypeDeleteView(DeleteView):
-    model = IssueTracker
+    model = Type
     template_name = 'type/type_delete.html'
     form_class = TypeForm
     object_name = 'type'
