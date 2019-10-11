@@ -25,7 +25,7 @@ class TypeUpdateView(UpdateView):
     model = Type
     template_name = 'type/type_update.html'
     form_class = TypeForm
-    object_name = 'type'
+    context_object_name = 'type'
 
     def get_success_url(self):
         return reverse('type_view')
@@ -35,7 +35,7 @@ class TypeDeleteView(DeleteView):
     model = Type
     template_name = 'type/type_delete.html'
     form_class = TypeForm
-    object_name = 'type'
+    context_object_name = 'type'
     page = 'type_view'
 
     def get_success_url(self):

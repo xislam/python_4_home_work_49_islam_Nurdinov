@@ -14,7 +14,7 @@ class IndexView(ListView):
 
 class IssueView(DetailView):
     template_name = 'issue/issue.html'
-    context_key = 'issue'
+    context_object_name = 'issue'
     model = IssueTracker
 
 

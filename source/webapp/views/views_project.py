@@ -16,7 +16,7 @@ class ProjectView(ListView):
 
 class ProjectDetailView(DetailView):
     template_name = 'project/projects.html'
-    context_key = 'project'
+    context_object_name = 'project'
     model = Project
 
 
