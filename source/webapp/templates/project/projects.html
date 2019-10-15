@@ -7,8 +7,9 @@
    <li><a href="{% url 'delete_project' project.pk %}">Delete</a></li>
 
 {% endblock %}
+{% block title %}{{ project.title }}{% endblock %}\
+    {% include 'partial/simple_search.html' %}
 
-{% block title %}{{ project.title }}{% endblock %}
 
 {% block content %}
     <h1>Краткое описание:{{project.name_project}}</h1>
