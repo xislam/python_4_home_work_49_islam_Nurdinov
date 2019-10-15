@@ -23,7 +23,6 @@ class Project(models.Model):
         return self.name_project
 
 
-
 class Type(models.Model):
     type = models.CharField(max_length=20, verbose_name='Тип')
 
