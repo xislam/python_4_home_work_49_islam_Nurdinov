@@ -8,6 +8,7 @@
     <a class="navbar-brand" href="{% url 'type_view' %}">Types</a>
          <a class="navbar-brand" href="{% url 'create_project' %}">Add Project</a>
     <a class="navbar-brand" href="{% url 'view_project' %}">Projects</a>
+    <a class="navbar-brand" href="{% url 'login' %}">Login in</a>
 {% endblock %}
 
 {% block content %}
@@ -28,7 +29,9 @@
         <p class="card-text">Статус: {{ issue.status }}</p>
         <p class="card-text">Тип: {{ issue.type }}</p>
         <p class="card-text">Дата : {{ issue.date_ct }}</p>
-
+        {% for issues in project.issue_project.all %}
+        <h2>Задачи: {{ issues.summary }}</h2>
+    {% endfor %}
     </div>
 </div>
 <h2></h2>
