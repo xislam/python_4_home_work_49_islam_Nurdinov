@@ -1,16 +1,14 @@
 {% extends 'issue/base.html' %}
 
 {% block menu %}
-<a class="navbar-brand" href="{% url 'issue_add' %}">Add IssueTrecer</a>
-    <a class="navbar-brand" href="{% url 'create_status' %}">Add Statuses</a>
-    <a class="navbar-brand" href="{% url 'status_view' %}">Statuses</a>
-     <a class="navbar-brand" href="{% url 'type_create' %}">Add Type</a>
-    <a class="navbar-brand" href="{% url 'type_view' %}">Types</a>
-         <a class="navbar-brand" href="{% url 'create_project' %}">Add Project</a>
-    <a class="navbar-brand" href="{% url 'view_project' %}">Projects</a>
-    <a class="navbar-brand" href="{% url 'login' %}">Login in</a>
+<a class="navbar-brand" href="{% url 'webapp:issue_add' %}">Add IssueTrecer</a>
+    <a class="navbar-brand" href="{% url 'webapp:create_status' %}">Add Statuses</a>
+    <a class="navbar-brand" href="{% url 'webapp:status_view' %}">Statuses</a>
+     <a class="navbar-brand" href="{% url 'webapp:type_create' %}">Add Type</a>
+    <a class="navbar-brand" href="{% url 'webapp:type_view' %}">Types</a>
+         <a class="navbar-brand" href="{% url 'webapp:create_project' %}">Add Project</a>
+    <a class="navbar-brand" href="{% url 'webapp:view_project' %}">Projects</a>
 {% endblock %}
-
 {% block content %}
 <h1>IssueTracker:</h1>
 <hr/>
@@ -21,9 +19,9 @@
 {% for issue in issues %}
 <div class="card">
     <div class="card-body">
-         <p style="display:inline "><a href="{% url 'issue_view' issue.pk %}"><i class="fas fa-book-open"></i></a></p>
-        <p style="display:inline "><a href="{% url 'update' issue.pk %}"><i class="fas fa-file-signature"></i></a></p>
-        <p style="display:inline "><a href="{% url 'delete' issue.pk %}"><i class="fas fa-trash"></i></a></p>
+         <p style="display:inline "><a href="{% url 'webapp:issue_view' issue.pk %}"><i class="fas fa-book-open"></i></a></p>
+        <p style="display:inline "><a href="{% url 'webapp:update' issue.pk %}"><i class="fas fa-file-signature"></i></a></p>
+        <p style="display:inline "><a href="{% url 'webapp:delete' issue.pk %}"><i class="fas fa-trash"></i></a></p>
         <h5 class="card-title" style="display:inline ">Краткое описание:{{ issue.summary }}</h5>
         <p class="card-text">Описание : {{ issue.description }}</p>
         <p class="card-text">Статус: {{ issue.status }}</p>

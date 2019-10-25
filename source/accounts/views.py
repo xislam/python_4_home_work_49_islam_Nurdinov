@@ -16,7 +16,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('index')
+            return redirect('webapp:index')
 
         else:
             context['has_error'] = True
@@ -28,4 +28,4 @@ def logout_view(request):
 
     logout(request)
 
-    return redirect('article_index')
+    return redirect('webapp:index')

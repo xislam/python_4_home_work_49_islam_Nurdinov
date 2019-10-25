@@ -59,7 +59,7 @@ class ProjectCreateView(CreateView):
     form_class = ProjectForm
 
     def get_success_url(self):
-        return reverse('view_project')
+        return reverse('webapp:view_project')
 
 
 class ProjectUpdateView(UpdateView):
@@ -69,7 +69,7 @@ class ProjectUpdateView(UpdateView):
     context_object_name = 'project'
 
     def get_success_url(self):
-        return reverse('view_project')
+        return reverse('webapp:view_project')
 
 
 class ProjectDeleteView(DeleteView):
@@ -80,4 +80,4 @@ class ProjectDeleteView(DeleteView):
     page = 'error.html'
 
     def get_success_url(self):
-        return reverse('view_project')
+        return reverse('webapp:view_project')

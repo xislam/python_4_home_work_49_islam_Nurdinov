@@ -55,7 +55,7 @@ class IssueCreateView(CreateView):
     form_class = IssueForm
 
     def get_success_url(self):
-        return reverse('issue_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
 
 class IssueUpdateView(UpdateView):
@@ -65,7 +65,7 @@ class IssueUpdateView(UpdateView):
     context_object_name = 'issue'
 
     def get_success_url(self):
-        return reverse('issue_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
 
 class IssueDeleteView(DeleteView):
@@ -76,5 +76,5 @@ class IssueDeleteView(DeleteView):
     page = 'index'
 
     def get_success_url(self):
-        return reverse('index')
+        return reverse('webapp:index')
 

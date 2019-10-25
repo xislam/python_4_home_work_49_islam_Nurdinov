@@ -18,7 +18,7 @@ class TypeCreateView(CreateView):
     form_class = TypeForm
 
     def get_success_url(self):
-        return reverse('type_view')
+        return reverse('webapp:type_view')
 
 
 class TypeUpdateView(UpdateView):
@@ -28,7 +28,7 @@ class TypeUpdateView(UpdateView):
     context_object_name = 'type'
 
     def get_success_url(self):
-        return reverse('type_view')
+        return reverse('webapp:type_view')
 
 
 class TypeDeleteView(DeleteView):
@@ -39,4 +39,4 @@ class TypeDeleteView(DeleteView):
     page = 'type_view'
 
     def get_success_url(self):
-        return reverse('type_view')
+        return reverse('webapp:type_view')

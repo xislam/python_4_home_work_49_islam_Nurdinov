@@ -1,13 +1,13 @@
 {% extends "issue/base.html" %}
 {% block title %}Delete Status{% endblock %}
 {% block menu %}
-    <li><a class="navbar-brand"   href="{% url 'status_view' %}">View</a></li>
+    <li><a class="navbar-brand"   href="{% url 'webapp:status_view' %}">View</a></li>
 {% endblock %}
 {% block content %}
     <h1>Are you sure want to delete status "{{ status }}"?</h1>
-    <form method="POST" action="{% url "delete_status" status.pk %}" class="text-center">
+    <form method="POST" action="{% url "webapp:delete_status" status.pk %}" class="text-center">
         {% csrf_token %}
         <p><input type="submit" value="Confirm"></p>
-        <p><a href="{% url "index" %}">Cancel</a></p>
+        <p><a href="{% url "webapp:index" %}">Cancel</a></p>
     </form>
 {% endblock %}

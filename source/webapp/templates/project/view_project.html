@@ -1,15 +1,13 @@
 {% extends 'issue/base.html' %}
 {% block menu %}
-   <li><a class="navbar-brand" href="{% url 'create_project'%}">Add Project</a></li>
+   <li><a class="navbar-brand" href="{% url 'webapp:create_project'%}">Add Project</a></li>
 {% endblock %}
-
 {% block content %}
    <h1>Projects:</h1>
    <hr/>
     {% include 'partial/simple_search.html' %}
-    <form method="POST" action="{% url "index"  %}">
+    <form method="POST" action="{% url "webapp:index"  %}">
         {% csrf_token %}
-
     {% if is_paginated %}
             {% include 'partial/pagination.html' %}
     {% endif %}
@@ -20,9 +18,9 @@
 
 
 
-       <a href="{% url 'update_project' project.pk %}"><i class="fas fa-file-signature"></i></a>
-       <a href="{% url 'delete_project' project.pk %}"><i class="fas fa-trash"></i></a>
-       <a href="{% url 'projects' project.pk %}"><i class="fas fa-book-open"></i></a>
+       <a href="{% url 'webapp:update_project' project.pk %}"><i class="fas fa-file-signature"></i></a>
+       <a href="{% url 'webapp:delete_project' project.pk %}"><i class="fas fa-trash"></i></a>
+       <a href="{% url 'webapp:projects' project.pk %}"><i class="fas fa-book-open"></i></a>
        <hr/>
    {% endfor %}
 {% endblock %}

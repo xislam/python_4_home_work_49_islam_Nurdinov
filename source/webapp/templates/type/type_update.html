@@ -1,11 +1,11 @@
 {% extends "issue/base.html" %}
 {% block title %}Update{% endblock %}
 {% block menu %}
-    <li><a class="navbar-brand" href="{% url 'type_view' %}">View</a></li>
+    <li><a class="navbar-brand" href="{% url 'webapp:type_view' %}">View</a></li>
 {% endblock %}
 {% block content %}
     <h1>Update Type</h1>
-    <form method="POST" action="{% url "type_update" type.pk %}">
+    <form method="POST" action="{% url "webapp:type_update" type.pk %}">
         {% include 'partial/issue_forms.html' with button_text='Update' %}
     </form>
 {% endblock %}
