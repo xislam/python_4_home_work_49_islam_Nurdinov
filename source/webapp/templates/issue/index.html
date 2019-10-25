@@ -19,9 +19,11 @@
 {% for issue in issues %}
 <div class="card">
     <div class="card-body">
+    {% if user.is_authenticated %}
          <p style="display:inline "><a href="{% url 'webapp:issue_view' issue.pk %}"><i class="fas fa-book-open"></i></a></p>
         <p style="display:inline "><a href="{% url 'webapp:update' issue.pk %}"><i class="fas fa-file-signature"></i></a></p>
         <p style="display:inline "><a href="{% url 'webapp:delete' issue.pk %}"><i class="fas fa-trash"></i></a></p>
+    {%endif%}
         <h5 class="card-title" style="display:inline ">Краткое описание:{{ issue.summary }}</h5>
         <p class="card-text">Описание : {{ issue.description }}</p>
         <p class="card-text">Статус: {{ issue.status }}</p>

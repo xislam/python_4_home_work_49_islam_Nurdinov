@@ -1,7 +1,9 @@
 {% extends 'issue/base.html' %}
 {% block menu %}
-   <li><a href="{% url 'webapp:update' issue.pk %}">Edit</a></li>
-   <li><a href="{% url 'webapp:delete' issue.pk %}">Delete</a></li>
+    {% if user.is_authenticated %}
+   <li><a class="nav-item nav-link active" href="{% url 'webapp:update' issue.pk %}">Edit</a></li>
+   <li><a class="nav-item nav-link active" href="{% url 'webapp:delete' issue.pk %}">Delete</a></li>
+    {% endif %}
 {% endblock %}
 {% block title %}{{ issue.title }}{% endblock %}
 {% block content %}
