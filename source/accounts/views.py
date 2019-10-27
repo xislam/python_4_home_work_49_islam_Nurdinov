@@ -28,7 +28,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('index')
+    return redirect('webapp:index')
 
 
 def register_view(request):
@@ -58,7 +58,7 @@ def register_view(request):
             except ConnectionRefusedError:
                 print('Could not send email. Server error.')
 
-            return redirect('index')
+            return redirect('webapp:index')
         else:
             return render(request, 'register.html', context={'form': form})
 
@@ -69,4 +69,4 @@ def user_activate_view(request, token):
     user.is_active = True
     user.save()
     login(request, user)
-    return redirect('index')
+    return redirect('webapp:index')
