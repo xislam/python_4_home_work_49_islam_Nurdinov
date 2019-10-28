@@ -33,4 +33,4 @@ class SignUpForm(forms.Form):
         password_2 = self.cleaned_data.get('password_confirm')
         if password_1 != password_2:
             raise ValidationError('Passwords do not match.', code='passwords_do_not_match')
-        return self.cleand_data
+        return self.cleaned_data
