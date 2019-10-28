@@ -5,6 +5,8 @@ from django.core.exceptions import ValidationError
 
 class SignUpForm(forms.Form):
     username = forms.CharField(max_length=100, required=True, label='Username')
+    first_name = forms.CharField(max_length=100, required=False, label='first_name')
+    last_name = forms.CharField(max_length=100, required=False, label='last_name')
     password = forms.CharField(max_length=100, required=True, label='Password',
                                widget=forms.PasswordInput)
     password_confirm = forms.CharField(max_length=100, required=True, label='Password confirm',
@@ -33,4 +35,10 @@ class SignUpForm(forms.Form):
         password_2 = self.cleaned_data.get('password_confirm')
         if password_1 != password_2:
             raise ValidationError('Passwords do not match.', code='passwords_do_not_match')
+        last_name = self.cleaned_data.get('last_name')
+        first_name = self.cleaned_data.get('first_name')
+        if not last_name and not first_name:
+            raise ValidationError('Напешите инециалы',  code='not last_name and not first_name')
+
         return self.cleaned_data
+
