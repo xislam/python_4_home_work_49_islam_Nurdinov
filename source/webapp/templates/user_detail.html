@@ -1,8 +1,10 @@
 {% extends 'issue/base.html' %}
 {% block title %}Пользователь{% endblock %}
-{% block menu_links %}
-    <li><a href="{% url "accounts:update" user_obj.pk %}">Редактировать</a></li>
-    <li><a href="{% url "accounts:password_change" user_obj.pk %}">Смена пароля</a></li>
+{% block menu %}
+    {% if user.pk == user_obj.pk %}
+    <li><a href="{% url "accounts:update" user_obj.pk %}" class="nav-link">Редактировать данные</a></li>
+    <li><a href="{% url "accounts:password_change" user_obj.pk %}" class="nav-link">Смена пароля</a></li>
+    {% endif %}
 {% endblock %}
 {% block content %}
     <h1>Личный кабинет</h1>
@@ -11,5 +13,6 @@
     <p>Фамилия: {{ user_obj.last_name }}</p>
     <p>Почта: {{ user_obj.email }}</p>
 {% endblock %}
+
 
 

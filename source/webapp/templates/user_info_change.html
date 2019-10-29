@@ -5,8 +5,8 @@
     <li><a href="#">Смена пароля</a></li>
 {% endblock %}
 {% block content %}
-    <h1>Личный кабинет</h1>
+    <h1> Редоктирование Личный кабинет</h1>
     <form action="{% url "accounts:update" user_obj.pk %}" method="post">
-        {% include 'partial/issue_forms.html' %}
+        {% include 'partial/issue_forms.html' with button_text="Update"%}
     </form>
 {% endblock %}

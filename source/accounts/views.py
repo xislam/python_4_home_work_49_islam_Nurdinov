@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.generic import DetailView, UpdateView
 
 from accounts.models import Token
-from accounts.forms import SignUpForm
+from accounts.forms import SignUpForm, UserChangeForm, PasswordChangeForm
 
 
 def login_view(request):
@@ -90,6 +90,12 @@ class UserPersonalInfoChangeView(UpdateView):
     def get_success_url(self):
         return reverse('accounts:detail', kwargs={'pk': self.object.pk})
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.pk != self.kwargs['pk']:
+            return HttpResponseForbidden()
+
+        return super().dispatch(request, *args, **kwargs)
+
 
 class UserPasswordChangeView(UpdateView):
     model = User
@@ -99,3 +105,9 @@ class UserPasswordChangeView(UpdateView):
 
     def get_success_url(self):
         return reverse('accounts:login')
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.pk != self.kwargs['pk']:
+            return HttpResponseForbidden()
+
+        return super().dispatch(request, *args, **kwargs)
