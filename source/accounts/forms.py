@@ -42,3 +42,11 @@ class SignUpForm(forms.Form):
 
         return self.cleaned_data
 
+
+class UserChangeForm(forms.ModelForm):
+
+    class Meta:
+
+        model = User
+        fields = ['first_name', 'last_name', 'email']
+        labels = {'first_name': 'Имя', 'last_name': 'Фамилия', 'email': 'Email'}

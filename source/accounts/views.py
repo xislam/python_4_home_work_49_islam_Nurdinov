@@ -1,11 +1,11 @@
+from django.contrib.auth.forms import UserChangeForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.views.generic import DetailView, UpdateView
 
 from accounts.models import Token
-from main.settings import HOST_NAME
-
 from accounts.forms import SignUpForm
 
 
@@ -73,3 +73,22 @@ def user_activate_view(request, token):
     user.save()
     login(request, user)
     return redirect('webapp:index')
+
+
+class UserDetailView(DetailView):
+    model = User
+    template_name = 'user_detail.html'
+    context_object_name = 'user_obj'
+
+
+class UserPersonalInfoChangeView(UpdateView):
+    model = User
+
+    template_name = 'user_info_change.html'
+
+    form_class = UserChangeForm
+
+    context_object_name = 'user_obj'
+
+    def get_success_url(self):
+        return reverse('accounts:detail', kwargs={'pk': self.object.pk})
