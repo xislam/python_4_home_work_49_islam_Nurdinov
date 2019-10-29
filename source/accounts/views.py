@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -83,12 +83,19 @@ class UserDetailView(DetailView):
 
 class UserPersonalInfoChangeView(UpdateView):
     model = User
-
     template_name = 'user_info_change.html'
-
     form_class = UserChangeForm
-
     context_object_name = 'user_obj'
 
     def get_success_url(self):
         return reverse('accounts:detail', kwargs={'pk': self.object.pk})
+
+
+class UserPasswordChangeView(UpdateView):
+    model = User
+    template_name = 'user_password_change.html'
+    form_class = PasswordChangeForm
+    context_object_name = 'user_obj'
+
+    def get_success_url(self):
+        return reverse('accounts:login')
