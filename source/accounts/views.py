@@ -50,20 +50,6 @@ def register_view(request):
             return redirect('accounts:login')
         return render(request, 'register.html', context={'form': form})
 
-        #     token = Token.objects.create(user=user)
-        #
-        #     activation_url = HOST_NAME + reverse('accounts:user_activate', kwargs={'token': token})
-        #     print(activation_url)
-        #     try:
-        #         user.email_user(
-        #             'Вы зарегистрировались на сайте localhost:8000.',
-        #             'Для активации перейдите по ссылке: ' + activation_url
-        #         )
-        #     except ConnectionRefusedError:
-        #         print('Could not send email. Server error.')
-        #
-        #     return redirect('webapp:index')
-        # else:
 
 
 def user_activate_view(request, token):
