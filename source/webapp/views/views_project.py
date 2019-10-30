@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.http import urlencode
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
@@ -41,9 +42,6 @@ class ProjectView(ListView):
             return self.form.cleaned_data['search']
         return None
 
-    # def get_queryset(self):
-    #     return Project.objects.all().order_by('created_at')
-
 
 class ProjectDetailView(DetailView):
     template_name = 'project/projects.html'
@@ -61,6 +59,11 @@ class ProjectCreateView(CreateView):
     def get_success_url(self):
         return reverse('webapp:view_project')
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
 
 class ProjectUpdateView(UpdateView):
     model = Project
@@ -70,6 +73,11 @@ class ProjectUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('webapp:view_project')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ProjectDeleteView(DeleteView):
@@ -81,3 +89,8 @@ class ProjectDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('webapp:view_project')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)

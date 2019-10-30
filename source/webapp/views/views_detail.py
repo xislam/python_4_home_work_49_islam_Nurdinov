@@ -51,6 +51,11 @@ class UpdateView(View):
         item = get_object_or_404(self.model, pk=pk)
         return item
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
 
 class DeleteView(View):
     form_class = None
@@ -91,3 +96,8 @@ class DeleteView(View):
         pk = self.kwargs.get(self.pk_kwargs)
         item = get_object_or_404(self.model, pk=pk)
         return item
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)

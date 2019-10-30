@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from webapp.models import Status
@@ -20,6 +21,11 @@ class StatusCreateView(CreateView):
     def get_success_url(self):
         return reverse('webapp:status_view')
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
 
 class StatusUpdateView(UpdateView):
     model = Status
@@ -29,6 +35,11 @@ class StatusUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('webapp:status_view')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
 
 
 class StatusDeleteView(DeleteView):
@@ -40,3 +51,8 @@ class StatusDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('webapp:status_view')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
