@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
+from accounts.models import Url
+
 
 class SignUpForm(forms.Form):
     username = forms.CharField(max_length=100, required=True, label='Username')
@@ -43,13 +45,15 @@ class SignUpForm(forms.Form):
         return self.cleaned_data
 
 
-class UserChangeForm(forms.ModelForm):
-
-    class Meta:
-
-        model = User
-        fields = ['first_name', 'last_name', 'email']
-        labels = {'first_name': 'Имя', 'last_name': 'Фамилия', 'email': 'Email'}
+# class UserChangeForm(forms.ModelForm):
+#
+#     url = forms.URLField(max_length=100, required=True, label='Профель на GitHup')
+#
+#     class Meta:
+#
+#         model = User
+#         fields = ['first_name', 'last_name', 'email']
+#         labels = {'first_name': 'Имя', 'last_name': 'Фамилия', 'email': 'Email'}
 
 
 class PasswordChangeForm(forms.ModelForm):
@@ -80,3 +84,15 @@ class PasswordChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['password', 'password_confirm', 'old_password']
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']
+
+
+class UrlForm(forms.ModelForm):
+    class Meta:
+        model = Url
+        fields = ['url']
