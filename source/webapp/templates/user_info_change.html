@@ -9,7 +9,7 @@
 {#    <form action="{% url "accounts:update" user_obj.pk %}" method="post">#}
 {#        {% include 'partial/issue_forms.html' with button_text="Update"%}#}
 {#    </form>#}
-    <form method="post">
+    <form action="{% url "accounts:update" user_obj.pk %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ user_form.as_p }}
         {{ profile_form.as_p }}

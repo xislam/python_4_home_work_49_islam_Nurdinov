@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.views.generic import DetailView, UpdateView, ListView
 
 from accounts.models import Token
-from accounts.forms import SignUpForm, PasswordChangeForm, UserForm, UrlForm
+from accounts.forms import SignUpForm, PasswordChangeForm, UserForm, UrlForm, UserChangeForm
 
 
 def login_view(request):
@@ -67,20 +67,20 @@ class UserDetailView(DetailView):
     context_object_name = 'user_obj'
 
 
-# class UserPersonalInfoChangeView(UpdateView):
-#     model = User
-#     template_name = 'user_info_change.html'
-#     form_class = UserChangeForm
-#     context_object_name = 'user_obj'
-#
-#     def get_success_url(self):
-#         return reverse('accounts:detail', kwargs={'pk': self.object.pk})
-#
-#     def dispatch(self, request, *args, **kwargs):
-#         if request.user.pk != self.kwargs['pk']:
-#             return HttpResponseForbidden()
-#
-#         return super().dispatch(request, *args, **kwargs)
+class UserPersonalInfoChangeView(UpdateView):
+    model = User
+    template_name = 'user_info_change.html'
+    form_class = UserChangeForm
+    context_object_name = 'user_obj'
+
+    def get_success_url(self):
+        return reverse('accounts:detail', kwargs={'pk': self.object.pk})
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.pk != self.kwargs['pk']:
+            return HttpResponseForbidden()
+
+        return super().dispatch(request, *args, **kwargs)
 
 
 class UserPasswordChangeView(UpdateView):
@@ -108,18 +108,20 @@ class UserView(ListView):
 
 
 @transaction.atomic
-def update_profile(request):
-    if request.method == 'POST':
-        user_form = UserForm(request.POST, instance=request.user)
-        profile_form = UrlForm(request.POST, instance=request.user.accounts_url)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            return redirect('webapp:index')
-    else:
+def update_profile(request, pk):
+    if request.method == 'GET':
         user_form = UserForm(instance=request.user)
         profile_form = UrlForm(instance=request.user.accounts_url)
         return render(request, 'user_info_change.html', {
             'user_form': user_form,
-            'profile_form': profile_form
+            'profile_form': profile_form,
+            'user_obj': request.user.accounts_url
         })
+    elif request.method == 'POST':
+        print(request.FILES)
+        user_form = UserForm(request.POST, request.FILES, instance=request.user)
+        profile_form = UrlForm(request.POST, request.FILES, instance=request.user.accounts_url)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('webapp:index')

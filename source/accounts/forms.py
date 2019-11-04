@@ -1,8 +1,9 @@
 from django import forms
+from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-
-from accounts.models import Url
+from accounts import admin
+from accounts.models import Url, Team
 
 
 class SignUpForm(forms.Form):
@@ -45,15 +46,42 @@ class SignUpForm(forms.Form):
         return self.cleaned_data
 
 
-# class UserChangeForm(forms.ModelForm):
-#
-#     url = forms.URLField(max_length=100, required=True, label='Профель на GitHup')
-#
-#     class Meta:
-#
-#         model = User
-#         fields = ['first_name', 'last_name', 'email']
-#         labels = {'first_name': 'Имя', 'last_name': 'Фамилия', 'email': 'Email'}
+class UserChangeForm(forms.ModelForm):
+    #
+    #
+    #
+
+    def get_initial_for_field(self, field, field_name):
+        if field_name in self.Meta.profile_fields:
+            return getattr(self.instance.profile, field_name)
+        return super().get_initial_for_field(field, field_name)
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']
+        profile_fields = ['avatar', 'description']
+        labels = {'first_name': 'Имя', 'last_name': 'Фамилия', 'email': 'Email'}
+
+    def save(self, commit=True):
+
+        user = super().save(commit)
+
+        self.save_profile(commit)
+
+        return user
+
+    def save_profile(self, commit=True):
+
+        profile = self.instance.profile
+
+        for field in self.Meta.profile_fields:
+            setattr(profile, field, self.cleaned_data[field])
+
+        if not profile.avatar:
+            profile.avatar = None
+
+        if commit:
+            profile.save()
 
 
 class PasswordChangeForm(forms.ModelForm):
@@ -95,4 +123,14 @@ class UserForm(forms.ModelForm):
 class UrlForm(forms.ModelForm):
     class Meta:
         model = Url
-        fields = ['url']
+        fields = ['url', 'avatar', 'description']
+
+
+class TeamForm(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = ['user', 'Project']
+
+
+
+

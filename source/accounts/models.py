@@ -16,8 +16,10 @@ class Token(models.Model):
 
 class Url(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='accounts_url')
-    url = models.URLField(max_length=300, null=False, blank=False, verbose_name='Профиль GitHup')
-    
+    url = models.URLField(max_length=300, null=True, blank=True, verbose_name='Профиль GitHup')
+    avatar = models.ImageField(null=True, blank=True, upload_to='user_pics', verbose_name='Аватар')
+    description = models.TextField(max_length=3000, null=True, blank=True, verbose_name='описание')
+
     def __str__(self):
         return str(self.url)
 
@@ -31,3 +33,13 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.accounts_url.save()
+
+
+class Team(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='accounts_url')
+    Project = models.ForeignKey('Project', related_name='issue_project', on_delete=models.PROTECT, null=True,
+                                blank=True, verbose_name='Проект')
+    created_at = models.DateField(verbose_name='Дата создания')
+    updated_at = models.DateField(verbose_name='Дата изменения')
+
+
