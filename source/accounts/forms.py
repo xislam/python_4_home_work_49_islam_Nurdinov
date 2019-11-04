@@ -59,7 +59,7 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email']
-        profile_fields = ['avatar', 'description']
+        profile_fields = ['url', 'avatar', 'description']
         labels = {'first_name': 'Имя', 'last_name': 'Фамилия', 'email': 'Email'}
 
     def save(self, commit=True):
@@ -125,11 +125,19 @@ class UrlForm(forms.ModelForm):
         model = Url
         fields = ['url', 'avatar', 'description']
 
+    def clean_url(self):
+        git = 'https://github.com/'
+        github = self.cleaned_data['url']
+        git_start = github.startswith(git)
+        if git_start == False:
+            raise ValidationError('error')
+        return github
+
 
 class TeamForm(forms.ModelForm):
     class Meta:
         model = Team
-        fields = ['user', 'Project']
+        fields = ['user', 'project']
 
 
 

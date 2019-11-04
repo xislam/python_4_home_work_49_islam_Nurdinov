@@ -3,6 +3,7 @@ from django.db import models
 from uuid import uuid4
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from webapp.models import Project
 
 
 class Token(models.Model):
@@ -36,8 +37,8 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class Team(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='accounts_url')
-    Project = models.ForeignKey('Project', related_name='issue_project', on_delete=models.PROTECT, null=True,
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='accounts_user')
+    project = models.ForeignKey(Project, related_name='user_project', on_delete=models.PROTECT, null=True,
                                 blank=True, verbose_name='Проект')
     created_at = models.DateField(verbose_name='Дата создания')
     updated_at = models.DateField(verbose_name='Дата изменения')
