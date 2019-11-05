@@ -1,8 +1,6 @@
 from django import forms
-from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from accounts import admin
 from accounts.models import Url, Team
 
 
@@ -47,10 +45,6 @@ class SignUpForm(forms.Form):
 
 
 class UserChangeForm(forms.ModelForm):
-    #
-    #
-    #
-
     def get_initial_for_field(self, field, field_name):
         if field_name in self.Meta.profile_fields:
             return getattr(self.instance.profile, field_name)
@@ -129,9 +123,13 @@ class UrlForm(forms.ModelForm):
         git = 'https://github.com/'
         github = self.cleaned_data['url']
         git_start = github.startswith(git)
-        if git_start == False:
+        print(git_start)
+        if git_start:
+            return github
+        else:
             raise ValidationError('error')
-        return github
+
+
 
 
 class TeamForm(forms.ModelForm):

@@ -1,4 +1,9 @@
+from django.contrib.auth.models import User
 from django.db import models
+
+
+def get_admin():
+    return User.objects.get(username='admin').id
 
 
 class IssueTracker(models.Model):
@@ -8,6 +13,8 @@ class IssueTracker(models.Model):
     type = models.ForeignKey('Type', related_name='issue_type', on_delete=models.PROTECT, null=True, blank=True, verbose_name='Тип')
     Project = models.ForeignKey('Project', related_name='issue_project', on_delete=models.PROTECT, null=True, blank=True, verbose_name='Проект')
     date_ct = models.DateField(auto_now_add=True, verbose_name='Дата создания')
+    created_by = models.ForeignKey(User, default=get_admin, verbose_name='Автор', on_delete=models.PROTECT, related_name='issue')
+    assigned_to = models.ForeignKey(User, null=True, on_delete=models.PROTECT, related_name='assigned_to')
 
     def __str__(self):
         return self.summary
