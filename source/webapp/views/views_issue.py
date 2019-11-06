@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -48,12 +49,18 @@ class IssueView(DetailView):
     model = IssueTracker
 
 
-class IssueCreateView(CreateView):
+class IssueCreateView(LoginRequiredMixin, CreateView):
     template_name = 'issue/create.html'
 
     model = IssueTracker
 
     form_class = IssueForm
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['created_by'].initial = self.request.user
+        print(self.request.user)
+        return form
 
     def get_success_url(self):
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
