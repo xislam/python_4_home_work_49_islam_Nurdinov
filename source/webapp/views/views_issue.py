@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
-from webapp.models import IssueTracker
+from webapp.models import IssueTracker, Project
 from webapp.forms import IssueForm, SimpleSearchForm
 from django.utils.http import urlencode
 
@@ -57,10 +57,22 @@ class IssueCreateView(LoginRequiredMixin, CreateView):
     form_class = IssueForm
 
     def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.fields['created_by'].initial = self.request.user
-        print(self.request.user)
+        form = super().get_form()
+        # form.fields['created_by'].initial = self.request.user
+        # form.fields['project'].initial = sel
         return form
+
+    def form_valid(self, form):
+        project = self.get_project()
+        self.object = project.issue_project.create(**form.cleaned_data)
+        self.object.created_by = self.request.user
+        self.object.project = project
+        self.object.save()
+        return redirect('webapp:index')
+
+    def get_project(self):
+        project_pk = self.kwargs.get('pk')
+        return get_object_or_404(Project, pk=project_pk)
 
     def get_success_url(self):
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})

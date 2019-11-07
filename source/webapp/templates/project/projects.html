@@ -6,6 +6,7 @@
 {% block title %}{{ project.title }}{% endblock %}\
     {% include 'partial/simple_search.html' %}
 {% block content %}
+    <a href="{% url 'webapp:issue_add' project.pk%}">Create issue</a>
     <h1>Краткое описание:{{project.name_project}}</h1>
     <p>Описание:{{ project.description_project}} </p>
     {% for issues in project.issue_project.all %}

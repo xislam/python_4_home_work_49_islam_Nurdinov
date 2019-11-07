@@ -9,7 +9,7 @@ class IssueForm(forms.ModelForm):
 
         model = IssueTracker
 
-        fields = ['summary', 'description', 'status', 'type', 'Project', 'created_by', 'assigned_to']
+        fields = ['summary', 'description', 'status', 'type', 'assigned_to']
 
 
 class StatusForm(forms.ModelForm):
