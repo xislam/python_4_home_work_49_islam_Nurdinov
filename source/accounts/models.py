@@ -43,4 +43,7 @@ class Team(models.Model):
     created_at = models.DateField(verbose_name='Дата создания')
     updated_at = models.DateField(verbose_name='Дата изменения')
 
+    def __str__(self):
+        return str(self.user)
+
 

@@ -56,11 +56,14 @@ class IssueCreateView(LoginRequiredMixin, CreateView):
 
     form_class = IssueForm
 
-    def get_form(self, form_class=None):
-        form = super().get_form()
-        # form.fields['created_by'].initial = self.request.user
-        # form.fields['project'].initial = sel
-        return form
+    # def get_form(self, form_class=None):
+    #     form = super().get_form()
+    #     form.fields['created_by'].initial = self.request.user
+    #     form.fields['project'].initial = self.request.get_project
+    #     teams = Team.objects.all()
+    #     print(teams)
+
+        # return form
 
     def form_valid(self, form):
         project = self.get_project()
@@ -73,6 +76,13 @@ class IssueCreateView(LoginRequiredMixin, CreateView):
     def get_project(self):
         project_pk = self.kwargs.get('pk')
         return get_object_or_404(Project, pk=project_pk)
+
+    def get_form_kwargs(self):
+        project_pk = self.kwargs.get('pk')
+        project = get_object_or_404(Project, pk=project_pk)
+        kwargs = super().get_form_kwargs()
+        kwargs['project'] = project
+        return kwargs
 
     def get_success_url(self):
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
