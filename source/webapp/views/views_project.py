@@ -1,8 +1,12 @@
+from datetime import datetime
+
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.http import urlencode
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+
+from accounts.models import Team
 from webapp.models import Project
 from webapp.forms import ProjectForm, SimpleSearchForm
 
@@ -58,6 +62,15 @@ class ProjectCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('webapp:view_project')
+
+    def form_valid(self, form):
+        team = list(form.cleaned_data.pop("users"))
+        team.append(self.request.user)
+        self.object = form.save()
+        Team.objects.create(user=self.request.user,project=self.object, created_at=datetime.now())
+        for user in team:
+            Team.objects.create(user=user, project=self.object, created_at=datetime.now())
+        return redirect(self.get_success_url())
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

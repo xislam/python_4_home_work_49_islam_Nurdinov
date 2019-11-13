@@ -38,11 +38,14 @@ class TypeForm(forms.ModelForm):
 
 
 class ProjectForm(forms.ModelForm):
+
+    users = forms.ModelMultipleChoiceField(queryset=User.objects.all())
+
     class Meta:
 
         model = Project
 
-        fields = ['name_project', 'description_project']
+        fields = ['name_project', 'description_project', 'users']
 
 
 class SimpleSearchForm(forms.Form):

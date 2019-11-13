@@ -1,3 +1,4 @@
+from django.http import request
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import TemplateView
 from django.views.generic.base import View
@@ -101,3 +102,25 @@ class DeleteView(View):
         if not request.user.is_authenticated:
             return redirect('accounts:login')
         return super().dispatch(request, *args, **kwargs)
+
+
+class SessionTimeMixin(View):
+
+    time = {}
+
+    def get_session(self):
+        urls = self.request.path
+        return urls
+
+    def get_login(self):
+        self.get_session()
+
+    def static(self):
+        pass
+
+    def counter_session(self):
+        pass
+
+    def counter_time(self):
+        pass
+

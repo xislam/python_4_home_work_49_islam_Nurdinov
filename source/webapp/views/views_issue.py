@@ -7,8 +7,10 @@ from webapp.models import IssueTracker, Project
 from webapp.forms import IssueForm, SimpleSearchForm
 from django.utils.http import urlencode
 
+from webapp.views.views_detail import SessionTimeMixin
 
-class IndexView(ListView):
+
+class IndexView(ListView, SessionTimeMixin):
     template_name = 'issue/index.html'
     context_object_name = 'issues'
     model = IssueTracker
@@ -16,6 +18,7 @@ class IndexView(ListView):
     paginate_orphans = 1
 
     def get(self, request, *args, **kwargs):
+        self.get_session()
         self.form = self.get_search_form()
         self.search_value = self.get_search_value()
         return super().get(request, *args, **kwargs)
@@ -43,10 +46,15 @@ class IndexView(ListView):
         return None
 
 
-class IssueView(DetailView):
+class IssueView(DetailView, SessionTimeMixin):
     template_name = 'issue/issue.html'
     context_object_name = 'issue'
     model = IssueTracker
+
+    def get(self, request, *args, **kwargs):
+        url = self.get_session()
+        print(url)
+        return super().get(request, args, kwargs)
 
 
 class IssueCreateView(LoginRequiredMixin, CreateView):
@@ -88,11 +96,24 @@ class IssueCreateView(LoginRequiredMixin, CreateView):
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
 
 
-class IssueUpdateView(UpdateView):
+class IssueUpdateView(UpdateView, SessionTimeMixin):
     model = IssueTracker
     template_name = 'issue/update.html'
     form_class = IssueForm
     context_object_name = 'issue'
+
+    def get(self, request, *args, **kwargs):
+        url = self.get_session()
+        print(url)
+        return super().get(request, args, kwargs)
+
+    def get_form_kwargs(self):
+        project_pk = self.kwargs.get('pk')
+        issue = get_object_or_404(IssueTracker, pk=project_pk)
+        kwargs = super().get_form_kwargs()
+        kwargs['project'] = issue.project
+        return kwargs
+
 
     def get_success_url(self):
         return reverse('webapp:issue_view', kwargs={'pk': self.object.pk})
@@ -103,12 +124,17 @@ class IssueUpdateView(UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class IssueDeleteView(DeleteView):
+class IssueDeleteView(DeleteView, SessionTimeMixin):
     model = IssueTracker
     template_name = 'issue/delete.html'
     form_class = IssueForm
     context_object_name = 'issue'
     page = 'index'
+
+    def get(self, request, *args, **kwargs):
+        url = self.get_session()
+        print(url)
+        return super().get(request, args, kwargs)
 
     def get_success_url(self):
         return reverse('webapp:index')
@@ -116,4 +142,4 @@ class IssueDeleteView(DeleteView):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('accounts:login')
-        return super().dispatch(request, *args, **kwargs)
+        return super().dispatch(request, args, kwargs)

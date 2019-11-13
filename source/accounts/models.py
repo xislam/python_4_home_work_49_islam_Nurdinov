@@ -41,7 +41,8 @@ class Team(models.Model):
     project = models.ForeignKey(Project, related_name='user_project', on_delete=models.PROTECT, null=True,
                                 blank=True, verbose_name='Проект')
     created_at = models.DateField(verbose_name='Дата создания')
-    updated_at = models.DateField(verbose_name='Дата изменения')
+    finish_at = models.DateField(verbose_name='Дата оканчание', null=True, blank=True)
+
 
     def __str__(self):
         return str(self.user)
