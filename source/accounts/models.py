@@ -43,7 +43,6 @@ class Team(models.Model):
     created_at = models.DateField(verbose_name='Дата создания')
     finish_at = models.DateField(verbose_name='Дата оканчание', null=True, blank=True)
 
-
     def __str__(self):
         return str(self.user)
 

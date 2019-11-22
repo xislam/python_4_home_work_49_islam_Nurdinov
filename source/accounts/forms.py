@@ -130,8 +130,6 @@ class UrlForm(forms.ModelForm):
             raise ValidationError('error')
 
 
-
-
 class TeamForm(forms.ModelForm):
     class Meta:
         model = Team
