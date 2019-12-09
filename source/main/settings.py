@@ -37,9 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'rest_framework',
+    'rest_framework.authtoken',
     'webapp',
     'accounts',
-    'api_v2'
+    'api_v2',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,13 @@ HOST_NAME = 'localhost:8000'
 
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'uploads')
 MEDIA_URL = '/uploads/'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
